@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  Metal_ImageProcessing
 //
-//  Created by Jim Wrenholt on 2/16/15.
+//  Created by Jim Wrenholt on 1/8/15.
 //  Copyright (c) 2015 Nordic Software, Inc. All rights reserved.
 //
 
