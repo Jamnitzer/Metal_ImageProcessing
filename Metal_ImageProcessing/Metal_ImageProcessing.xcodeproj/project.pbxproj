@@ -24,7 +24,6 @@
 		8D70870A1A92563F00004737 /* V2f.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7087041A92563F00004737 /* V2f.swift */; };
 		8D70870B1A92563F00004737 /* V3f.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7087051A92563F00004737 /* V3f.swift */; };
 		8D70870C1A92563F00004737 /* V4f.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7087061A92563F00004737 /* V4f.swift */; };
-		8D8AB99C1A92570A00EB8EB4 /* screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D8AB99B1A92570A00EB8EB4 /* screen.png */; };
 		8D8AB99E1A92572600EB8EB4 /* Default.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8D8AB99D1A92572600EB8EB4 /* Default.jpg */; };
 /* End PBXBuildFile section */
 
@@ -60,7 +59,6 @@
 		8D7087041A92563F00004737 /* V2f.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = V2f.swift; sourceTree = "<group>"; };
 		8D7087051A92563F00004737 /* V3f.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = V3f.swift; sourceTree = "<group>"; };
 		8D7087061A92563F00004737 /* V4f.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = V4f.swift; sourceTree = "<group>"; };
-		8D8AB99B1A92570A00EB8EB4 /* screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screen.png; sourceTree = SOURCE_ROOT; };
 		8D8AB99D1A92572600EB8EB4 /* Default.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Default.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -119,7 +117,6 @@
 			isa = PBXGroup;
 			children = (
 				8D8AB99D1A92572600EB8EB4 /* Default.jpg */,
-				8D8AB99B1A92570A00EB8EB4 /* screen.png */,
 				8D5FF0E51A9254F500A10868 /* AppDelegate.swift */,
 				8D5FF0E91A9254F500A10868 /* Main.storyboard */,
 				8D5FF0EC1A9254F500A10868 /* Images.xcassets */,
@@ -240,7 +237,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D5FF0EB1A9254F500A10868 /* Main.storyboard in Resources */,
-				8D8AB99C1A92570A00EB8EB4 /* screen.png in Resources */,
 				8D5FF0F01A9254F500A10868 /* LaunchScreen.xib in Resources */,
 				8D5FF0ED1A9254F500A10868 /* Images.xcassets in Resources */,
 				8D8AB99E1A92572600EB8EB4 /* Default.jpg in Resources */,
