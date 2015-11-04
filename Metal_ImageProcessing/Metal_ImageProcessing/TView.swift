@@ -69,7 +69,7 @@ class TView : UIView
     //------------------------------------------------------
     required init(coder aDecoder: NSCoder)
     {
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)!
         self.initCommon()
     }
     //------------------------------------------------------
@@ -83,7 +83,7 @@ class TView : UIView
         metalLayer = self.layer as? CAMetalLayer
         if (metalLayer == nil)
         {
-            println("NO metalLayer HERE")
+            print("NO metalLayer HERE")
         }
         metalLayer?.device = device           // 2
         metalLayer?.pixelFormat = .BGRA8Unorm // 3
@@ -114,18 +114,18 @@ class TView : UIView
     //------------------------------------------------------
     func renderPassDescriptor() -> MTLRenderPassDescriptor?
     {
-        var drawable:CAMetalDrawable? = self.currentDrawable()
+        let drawable:CAMetalDrawable? = self.currentDrawable()
         if (drawable == nil)
         {
-            println(">> ERROR: Failed to get a drawable!")
+            print(">> ERROR: Failed to get a drawable!")
             _renderPassDescriptor = nil
         }
         else
         {
-            let t1 = drawable!.texture!
+            let t1 = drawable!.texture
             setupRenderPassDescriptorForTexture(t1)
         }
-        return _renderPassDescriptor?
+        return _renderPassDescriptor
     }
     //-------------------------------------------------------------------------
     func currentDrawable() -> CAMetalDrawable?
@@ -134,7 +134,7 @@ class TView : UIView
         {
             _currentDrawable = metalLayer?.nextDrawable()
         }
-        return _currentDrawable?
+        return _currentDrawable
     }
     //--------------------------------------------------------------
     // view controller will call off the main thread
@@ -186,7 +186,7 @@ class TView : UIView
         }
     }
      //------------------------------------------------------------------------
-    func setContentScaleFactor(contentScaleFactor:CGFloat)
+    func set_ContentScaleFactor(contentScaleFactor:CGFloat)
     {
         super.contentScaleFactor = contentScaleFactor
         layerSizeDidUpdate = true
@@ -228,7 +228,7 @@ class TView : UIView
         //----------------------------------------------------------
         if (sampleCount > 1)
         {
-            var doUpdate:Bool =  (_msaaTex!.width != texture.width ||
+            let doUpdate:Bool =  (_msaaTex!.width != texture.width ||
                 _msaaTex!.height != texture.height ||
                 _msaaTex!.sampleCount != sampleCount)
 
@@ -328,7 +328,7 @@ class TView : UIView
         //----------------------------------------------------------
         if (stencilPixelFormat != MTLPixelFormat.Invalid)
         {
-            var doUpdate:Bool = (_stencilTex!.width != texture.width ||
+            let doUpdate:Bool = (_stencilTex!.width != texture.width ||
                                 _stencilTex!.height != texture.height ||
                                 _stencilTex!.sampleCount != sampleCount)
 

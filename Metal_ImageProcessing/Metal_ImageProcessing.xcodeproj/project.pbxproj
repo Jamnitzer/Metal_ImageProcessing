@@ -17,7 +17,6 @@
 		8D7086FC1A92561100004737 /* TTexture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7086F61A92561100004737 /* TTexture.swift */; };
 		8D7086FD1A92561100004737 /* TView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7086F71A92561100004737 /* TView.swift */; };
 		8D7086FE1A92561100004737 /* TViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7086F81A92561100004737 /* TViewController.swift */; };
-		8D7086FF1A92561100004737 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7086F91A92561100004737 /* ViewController.swift */; };
 		8D7087071A92563F00004737 /* M3f.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7087011A92563F00004737 /* M3f.swift */; };
 		8D7087081A92563F00004737 /* M4f.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7087021A92563F00004737 /* M4f.swift */; };
 		8D7087091A92563F00004737 /* MathBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7087031A92563F00004737 /* MathBase.swift */; };
@@ -25,6 +24,7 @@
 		8D70870B1A92563F00004737 /* V3f.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7087051A92563F00004737 /* V3f.swift */; };
 		8D70870C1A92563F00004737 /* V4f.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7087061A92563F00004737 /* V4f.swift */; };
 		8D8AB99E1A92572600EB8EB4 /* Default.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8D8AB99D1A92572600EB8EB4 /* Default.jpg */; };
+		8DD66DB71AEC1DF60044FE59 /* processTexturedQuad.metal in Sources */ = {isa = PBXBuildFile; fileRef = 8DD66DB61AEC1DF60044FE59 /* processTexturedQuad.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,7 +52,6 @@
 		8D7086F61A92561100004737 /* TTexture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTexture.swift; sourceTree = "<group>"; };
 		8D7086F71A92561100004737 /* TView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TView.swift; sourceTree = "<group>"; };
 		8D7086F81A92561100004737 /* TViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TViewController.swift; sourceTree = "<group>"; };
-		8D7086F91A92561100004737 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		8D7087011A92563F00004737 /* M3f.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = M3f.swift; sourceTree = "<group>"; };
 		8D7087021A92563F00004737 /* M4f.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = M4f.swift; sourceTree = "<group>"; };
 		8D7087031A92563F00004737 /* MathBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MathBase.swift; sourceTree = "<group>"; };
@@ -60,6 +59,7 @@
 		8D7087051A92563F00004737 /* V3f.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = V3f.swift; sourceTree = "<group>"; };
 		8D7087061A92563F00004737 /* V4f.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = V4f.swift; sourceTree = "<group>"; };
 		8D8AB99D1A92572600EB8EB4 /* Default.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Default.jpg; sourceTree = "<group>"; };
+		8DD66DB61AEC1DF60044FE59 /* processTexturedQuad.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = processTexturedQuad.metal; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,11 +103,11 @@
 			children = (
 				8D7087001A92563F00004737 /* Math */,
 				8D7086F41A92561100004737 /* TQuad.swift */,
+				8DD66DB61AEC1DF60044FE59 /* processTexturedQuad.metal */,
 				8D7086F51A92561100004737 /* TRenderer.swift */,
 				8D7086F61A92561100004737 /* TTexture.swift */,
 				8D7086F71A92561100004737 /* TView.swift */,
 				8D7086F81A92561100004737 /* TViewController.swift */,
-				8D7086F91A92561100004737 /* ViewController.swift */,
 				8D5FF0E31A9254F500A10868 /* Supporting Files */,
 			);
 			path = Metal_ImageProcessing;
@@ -200,7 +200,8 @@
 		8D5FF0D81A9254F500A10868 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Nordic Software, Inc.";
 				TargetAttributes = {
 					8D5FF0DF1A9254F500A10868 = {
@@ -266,8 +267,8 @@
 				8D7086FB1A92561100004737 /* TRenderer.swift in Sources */,
 				8D7086FA1A92561100004737 /* TQuad.swift in Sources */,
 				8D7087081A92563F00004737 /* M4f.swift in Sources */,
+				8DD66DB71AEC1DF60044FE59 /* processTexturedQuad.metal in Sources */,
 				8D7086FC1A92561100004737 /* TTexture.swift in Sources */,
-				8D7086FF1A92561100004737 /* ViewController.swift in Sources */,
 				8D7087091A92563F00004737 /* MathBase.swift in Sources */,
 				8D5FF0E61A9254F500A10868 /* AppDelegate.swift in Sources */,
 			);
@@ -331,6 +332,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -396,6 +398,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Metal_ImageProcessing/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "NordicSoftware.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -406,6 +409,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Metal_ImageProcessing/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "NordicSoftware.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -424,6 +428,7 @@
 				);
 				INFOPLIST_FILE = Metal_ImageProcessingTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "NordicSoftware.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Metal_ImageProcessing.app/Metal_ImageProcessing";
 			};
@@ -439,6 +444,7 @@
 				);
 				INFOPLIST_FILE = Metal_ImageProcessingTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "NordicSoftware.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Metal_ImageProcessing.app/Metal_ImageProcessing";
 			};

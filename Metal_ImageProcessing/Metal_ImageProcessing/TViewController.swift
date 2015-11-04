@@ -77,7 +77,7 @@ class TViewController: UIViewController
         self.delegate = renderer!
 
         //--------------------------------------------------
-       // Register notifications to start/stop drawing as
+        // Register notifications to start/stop drawing as
         // this app moves into the background
         //--------------------------------------------------
        NSNotificationCenter.defaultCenter().addObserver(
@@ -95,23 +95,23 @@ class TViewController: UIViewController
         interval = 1
     }
     //-------------------------------------------------------------------------
-    override init()
-    {
-        super.init()
-        initCommon()
-    }
+//    override init()
+//    {
+//        super.init()
+//        initCommon()
+//    }
     //-------------------------------------------------------------------------
     // called when loaded from nib
     //-------------------------------------------------------------------------
     override init(nibName: String?, bundle nibBundle: NSBundle?)
     {
-        super.init(nibName: nibName?, bundle: nibBundle?)
+        super.init(nibName: nibName, bundle: nibBundle)
         initCommon()
     }
     //-------------------------------------------------------------------------
     required init(coder aDecoder: NSCoder)
     {
-        super.init(coder:aDecoder)
+        super.init(coder:aDecoder)!
         initCommon()
     }
     //-------------------------------------------------------------------------
@@ -119,7 +119,7 @@ class TViewController: UIViewController
     {
         super.viewDidLoad()
 
-        let renderView = self.view as TView
+        let renderView = self.view as! TView
         renderView.delegate = renderer
         // load all renderer assets before starting game loop
         renderer!.configure(renderView)
@@ -175,7 +175,7 @@ class TViewController: UIViewController
         // call the display method directly on the render view
         // (setNeedsDisplay: has been disabled in the renderview by default)
         //-------------------------------------------------------------------
-        let myview:TView = self.view as TView
+        let myview:TView = self.view as! TView
         myview.display()
     }
     //-------------------------------------------------------------------------
@@ -191,7 +191,7 @@ class TViewController: UIViewController
         }
     }
     //-------------------------------------------------------------------------
-    func setPaused(pause:Bool)
+    func set_Paused(pause:Bool)
     {
         if (_gameLoopPaused == true)
         {
@@ -210,7 +210,7 @@ class TViewController: UIViewController
                 //-------------------------------------------------
                 // ask the view to release textures until its resumed
                 //-------------------------------------------------
-                let myview:TView = self.view as TView
+                let myview:TView = self.view as! TView
                 myview.releaseTextures()
             }
             else
@@ -228,12 +228,12 @@ class TViewController: UIViewController
     //-------------------------------------------------------------------------
     func didEnterBackground(notification:NSNotification)
     {
-        self.setPaused(true)
+        self.set_Paused(true)
     }
     //-------------------------------------------------------------------------
     func willEnterForeground(notification:NSNotification)
     {
-        self.setPaused(false)
+        self.set_Paused(false)
     }
     //-------------------------------------------------------------------------
     override func viewWillAppear(animated:Bool)

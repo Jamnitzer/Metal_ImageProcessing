@@ -4,7 +4,7 @@
 import Foundation
 
 //------------------------------------------------------------------------------
-struct M4f : Printable, DebugPrintable
+struct M4f : CustomStringConvertible, CustomDebugStringConvertible
 {
     var mat: Array<Float> =
             [1.0, 0.0, 0.0, 0.0,
@@ -161,16 +161,16 @@ let zeroVector4 = V4f(0.0, 0.0, 0.0, 0.0)
 //------------------------------------------------------------------------------
 func lookAt(eye:V3f, center:V3f, up:V3f) -> M4f
 {
-    var E:V3f = -eye
+    let E:V3f = -eye
 
-    var Na:V3f = center + E
-    var N:V3f = Na.Normalized()
+    let Na:V3f = center + E
+    let N:V3f = Na.Normalized()
 
-    var Ua = Cross(up, N)
-    var U:V3f = Ua.Normalized()
+    let Ua = Cross(up, b: N)
+    let U:V3f = Ua.Normalized()
 
-    var Va = Cross(N, U)
-    var V:V3f = Va.Normalized()
+    let Va = Cross(N, b: U)
+    let V:V3f = Va.Normalized()
 
     var P:V4f = zeroVector4
     var Q:V4f = zeroVector4
@@ -181,9 +181,9 @@ func lookAt(eye:V3f, center:V3f, up:V3f) -> M4f
     P.y = V.x; Q.y = V.y; R.y = V.z
     P.z = N.x; Q.z = N.y; R.z = N.z
 
-    S.x = Dot(U, E)
-    S.y = Dot(V, E)
-    S.z = Dot(N, E)
+    S.x = Dot(U, b: E)
+    S.y = Dot(V, b: E)
+    S.z = Dot(N, b: E)
     S.w = 1.0
 
     return M4f(P, Q, R, S)
@@ -192,10 +192,10 @@ func lookAt(eye:V3f, center:V3f, up:V3f) -> M4f
 func frustum_oc(left:Float, right:Float, bottom:Float, top:Float,
     near:Float, far:Float) -> M4f
 {
-    var sWidth:Float = 1.0 / (right - left)
-    var sHeight:Float = 1.0 / (top - bottom)
-    var sDepth:Float = far / (far - near)
-    var dNear:Float = 2.0 * near
+    let sWidth:Float = 1.0 / (right - left)
+    let sHeight:Float = 1.0 / (top - bottom)
+    let sDepth:Float = far / (far - near)
+    let dNear:Float = 2.0 * near
 
     var P:V4f = zeroVector4
     var Q:V4f = zeroVector4

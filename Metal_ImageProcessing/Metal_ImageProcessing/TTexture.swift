@@ -15,8 +15,8 @@ class TTexture
 {
     // Simple Utility class for creating a 2d texture
     var texture:MTLTexture?
-    var width:UInt = 0
-    var height:UInt = 0
+    var width:Int = 0
+    var height:Int = 0
 
     //------------------------------------------------------------
     init (device:MTLDevice, texStr:String, ext:String)
@@ -27,7 +27,7 @@ class TTexture
             let imageRef = image.CGImage
             self.width = CGImageGetWidth(imageRef)
             self.height = CGImageGetHeight(imageRef)
-            self.texture = textureForImage(image, device)
+            self.texture = textureForImage(image, device: device)
         }
     }
     //------------------------------------------------------------
@@ -43,11 +43,11 @@ func textureForImage(image:UIImage, device:MTLDevice) -> MTLTexture?
     let height = CGImageGetHeight(imageRef)
     let colorSpace = CGColorSpaceCreateDeviceRGB()
 
-    let rawData = calloc(height * width * 4, UInt(sizeof(UInt8)))
+    let rawData = calloc(height * width * 4, Int(sizeof(UInt8)))
 
-    let bytesPerPixel: UInt = 4
-    let bytesPerRow: UInt = bytesPerPixel * width
-    let bitsPerComponent: UInt = 8
+    let bytesPerPixel: Int = 4
+    let bytesPerRow: Int = bytesPerPixel * width
+    let bitsPerComponent: Int = 8
 
     let options = CGImageAlphaInfo.PremultipliedLast.rawValue |
         CGBitmapInfo.ByteOrder32Big.rawValue
@@ -58,7 +58,7 @@ func textureForImage(image:UIImage, device:MTLDevice) -> MTLTexture?
         bitsPerComponent,
         bytesPerRow,
         colorSpace,
-        CGBitmapInfo(options))
+        options)
 
     CGContextSaveGState(context);
     CGContextTranslateCTM(context, 0.0, CGFloat(height));

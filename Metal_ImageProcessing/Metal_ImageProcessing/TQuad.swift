@@ -73,7 +73,7 @@ class TQuad
 
         if (m_VertexBuffer == nil)
         {
-            println(">> ERROR: Failed creating a vertex buffer for a quad!")
+            print(">> ERROR: Failed creating a vertex buffer for a quad!")
             return
         }
         m_VertexBuffer!.label = "quad vertices"
@@ -85,7 +85,7 @@ class TQuad
 
         if (m_TexCoordBuffer == nil)
         {
-            println(">> ERROR: Failed creating a 2d texture coordinate buffer!")
+            print(">> ERROR: Failed creating a 2d texture coordinate buffer!")
             return
         }
         m_TexCoordBuffer!.label = "quad texcoords"
@@ -119,7 +119,7 @@ class TQuad
             //--------------------------------------------------
             // Update the vertex buffer with the quad bounds
             //--------------------------------------------------
-            var pVertices =
+            let pVertices =
             UnsafeMutablePointer<V4f>(m_VertexBuffer!.contents())
 
             if (pVertices != nil)
@@ -151,11 +151,11 @@ class TQuad
     {
         if (m_VertexBuffer == nil)
         {
-            println("m_VertexBuffer == nil")
+            print("m_VertexBuffer == nil")
         }
         if (m_TexCoordBuffer == nil)
         {
-            println("m_TexCoordBuffer == nil")
+            print("m_TexCoordBuffer == nil")
         }
 
         renderEncoder.setVertexBuffer(

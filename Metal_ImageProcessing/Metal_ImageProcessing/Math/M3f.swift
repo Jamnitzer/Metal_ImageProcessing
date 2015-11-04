@@ -4,7 +4,7 @@
 import Foundation
 
 //------------------------------------------------------------------------------
-struct M3f : Printable, DebugPrintable
+struct M3f : CustomStringConvertible, CustomDebugStringConvertible
 {
     var mat: Array<Float> = [
         1.0, 0.0, 0.0,

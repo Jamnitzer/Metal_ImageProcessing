@@ -157,7 +157,7 @@ class TRenderer : TViewControllerDelegate, TViewDelegate
         // we need to set the framebuffer only property of the layer to NO so we
         // can perform compute on the drawable's texture
         //-----------------------------------------------------
-        let metalLayer:CAMetalLayer = view.layer as CAMetalLayer
+        let metalLayer:CAMetalLayer = view.layer as! CAMetalLayer
             metalLayer.framebufferOnly = false
 
         if !preparePipelineState()
@@ -201,24 +201,35 @@ class TRenderer : TViewControllerDelegate, TViewDelegate
             m_ShaderLibrary!.newFunctionWithName("grayscale")
         if (function == nil)
         {
-            println(">> ERROR: Failed creating a new function!")
+            print(">> ERROR: Failed creating a new function!")
         }
 
         //-----------------------------------------------------
         // Create a compute kernel
         //-----------------------------------------------------
-        var kernel_err:NSError?
-        m_Kernel = device!.newComputePipelineStateWithFunction(function!,
-            error: &kernel_err)
-        if (m_Kernel == nil)
+        do {
+            m_Kernel = try device!.newComputePipelineStateWithFunction(function!)
+        }
+        catch let pipelineError as NSError
         {
-            println(">> ERROR: Failed creating a compute kernel: ")
-            if (kernel_err != nil)
-            {
-                println(": \(kernel_err!)")
-            }
+            m_Kernel = nil
+            print("Failed creating a compute kernel:  \( pipelineError ) ")
             return false
         }
+
+
+//        var kernel_err:NSError?
+//        m_Kernel = device!.newComputePipelineStateWithFunction(function!,
+//            error: &kernel_err)
+//        if (m_Kernel == nil)
+//        {
+//            print(">> ERROR: Failed creating a compute kernel: ")
+//            if (kernel_err != nil)
+//            {
+//                print(": \(kernel_err!)")
+//            }
+//            return false
+//        }
 
         let pTexDesc = MTLTextureDescriptor.texture2DDescriptorWithPixelFormat(
             MTLPixelFormat.RGBA8Unorm,
@@ -235,7 +246,7 @@ class TRenderer : TViewControllerDelegate, TViewDelegate
         m_OutTexture = device!.newTextureWithDescriptor(pTexDesc)
         if (m_OutTexture == nil)
         {
-            println(">> ERROR: Failed creating an output 2d texture!")
+            print(">> ERROR: Failed creating an output 2d texture!")
             return false
         }
 
@@ -256,7 +267,7 @@ class TRenderer : TViewControllerDelegate, TViewDelegate
                 m_ShaderLibrary!.newFunctionWithName("texturedQuadFragment")
         if (fragmentProgram == nil)
         {
-            println(">> ERROR: Couldn't load fragment function from default library")
+            print(">> ERROR: Couldn't load fragment function from default library")
         }
         //-----------------------------------------------------
         // get the vertex function from the library
@@ -264,7 +275,7 @@ class TRenderer : TViewControllerDelegate, TViewDelegate
         let vertexProgram = m_ShaderLibrary!.newFunctionWithName("texturedQuadVertex")
         if (vertexProgram == nil)
         {
-            println(">> ERROR: Couldn't load vertex function from default library")
+            print(">> ERROR: Couldn't load vertex function from default library")
         }
         //-----------------------------------------------------
         // create a pipeline state for the quad
@@ -283,25 +294,37 @@ class TRenderer : TViewControllerDelegate, TViewDelegate
         pQuadStateDesc.vertexFunction = vertexProgram!
         pQuadStateDesc.fragmentFunction = fragmentProgram!
 
-        var pipeline_err:NSError?
-        m_PipelineState = device!.newRenderPipelineStateWithDescriptor(
-            pQuadStateDesc, error: &pipeline_err) // error:&pError]
-
-        if (m_PipelineState == nil)
+        do {
+            self.m_PipelineState = try
+                device!.newRenderPipelineStateWithDescriptor(pQuadStateDesc)
+        }
+        catch let pipelineError as NSError
         {
-            println(">> ERROR: Failed acquiring pipeline state descriptor: \(pipeline_err)")
+            self.m_PipelineState = nil
+            print("Failed acquiring pipeline state \(pipelineError)")
             return false
         }
+
+
+//        var pipeline_err:NSError?
+//        m_PipelineState = device!.newRenderPipelineStateWithDescriptor(
+//            pQuadStateDesc, error: &pipeline_err) // error:&pError]
+//
+//        if (m_PipelineState == nil)
+//        {
+//            print(">> ERROR: Failed acquiring pipeline state descriptor: \(pipeline_err)")
+//            return false
+//        }
 
         return true
     }
     //-------------------------------------------------------------------------
     func prepareDepthStencilState() -> Bool
     {
-        var pDepthStateDesc:MTLDepthStencilDescriptor? = MTLDepthStencilDescriptor()
+        let pDepthStateDesc:MTLDepthStencilDescriptor? = MTLDepthStencilDescriptor()
         if (pDepthStateDesc == nil)
         {
-            println(">> ERROR: Failed creating a depth stencil descriptor!")
+            print(">> ERROR: Failed creating a depth stencil descriptor!")
             return false
         }
 
@@ -329,7 +352,7 @@ class TRenderer : TViewControllerDelegate, TViewDelegate
         m_Quad = TQuad(device: device!)
         if (m_Quad == nil)
         {
-            println(">> ERROR: Failed creating a quad object!")
+            print(">> ERROR: Failed creating a quad object!")
             return false
         }
         m_Quad!.size = m_Size
@@ -358,10 +381,10 @@ class TRenderer : TViewControllerDelegate, TViewDelegate
         // Create a viewing matrix derived from an eye point, a reference point
         // indicating the center of the scene, and an up vector.
         //-----------------------------------------------------
-        var eye = V3f(0, 0, 0)
-        var center = V3f(0, 0, 1)
-        var up = V3f(0, 1, 0)
-        self.m_LookAt = lookAt(eye, center, up)
+        let eye = V3f(0, 0, 0)
+        let center = V3f(0, 0, 1)
+        let up = V3f(0, 1, 0)
+        self.m_LookAt = lookAt(eye, center: center, up: up)
 
         //-----------------------------------------------------
         // Translate the object in (x, y, z) space.
@@ -373,7 +396,7 @@ class TRenderer : TViewControllerDelegate, TViewDelegate
     //-------------------------------------------------------------------------
     func compute(commandBuffer:MTLCommandBuffer)
     {
-        var computeEncoder:MTLComputeCommandEncoder? =
+        let computeEncoder:MTLComputeCommandEncoder? =
             commandBuffer.computeCommandEncoder()
 
         if (computeEncoder != nil)
@@ -424,7 +447,7 @@ class TRenderer : TViewControllerDelegate, TViewDelegate
     }
     //-------------------------------------------------------------------------
     //-------------------------------------------------------------------------
-    func reshape(view:TView)
+    @objc func reshape(view:TView)
     {
         //-----------------------------------------------------
         // To correctly compute the aspect ration determine
@@ -481,12 +504,12 @@ class TRenderer : TViewControllerDelegate, TViewDelegate
             let rangle:Float = DEG2RAD(dangle)
             //-----------------------------------------------------
             let length:Float = near * tan(rangle)
-            var right:Float = length / m_Quad!.aspect
-            var left:Float = -right
-            var top:Float = length
-            var bottom:Float = -top
+            let right:Float = length / m_Quad!.aspect
+            let left:Float = -right
+            let top:Float = length
+            let bottom:Float = -top
 
-            let perspective = frustum_oc(left, right, bottom, top, near, far)
+            let perspective = frustum_oc(left, right: right, bottom: bottom, top: top, near: near, far: far)
             //-----------------------------------------------------
             // Create a viewing matrix derived from an eye point, 
             // a reference point indicating the center of the scene, 
@@ -506,11 +529,11 @@ class TRenderer : TViewControllerDelegate, TViewDelegate
             var pTransform:UnsafeMutablePointer<Void>?
                 pTransform = m_TransformBuffer?.contents()
 
-            memcpy(pTransform!, m_Transform.mat, kSzSIMDFloat4x4)
+            memcpy(pTransform!, m_Transform.mat, Int(kSzSIMDFloat4x4))
         }
     }
     //-------------------------------------------------------------------------
-    func render(view:TView)
+    @objc func render(view:TView)
     {
         dispatch_semaphore_wait(m_InflightSemaphore, DISPATCH_TIME_FOREVER)
 
@@ -540,7 +563,7 @@ class TRenderer : TViewControllerDelegate, TViewDelegate
             //-----------------------------------------------------
             // render textured quad
             //-----------------------------------------------------
-            encode(renderEncoder!)
+            encode(renderEncoder)
 
             //-----------------------------------------------------
             // Dispatch the command buffer
@@ -563,13 +586,13 @@ class TRenderer : TViewControllerDelegate, TViewDelegate
         }
     }
     //-------------------------------------------------------------------------
-    func update(controller:TViewController)
+    @objc func update(controller:TViewController)
     {
         // Note this method is called from the thread the main game loop is run
         // not used in this sample
     }
     //-------------------------------------------------------------------------
-    func viewController(controller:TViewController, willPause:Bool)
+    @objc func viewController(controller:TViewController, willPause:Bool)
     {
         // called whenever the main game loop is paused,
         // such as when the app is backgrounded
